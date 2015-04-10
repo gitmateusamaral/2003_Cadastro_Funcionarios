@@ -30,17 +30,15 @@
         {
             this.registro = new System.Windows.Forms.ListBox();
             this.nome = new System.Windows.Forms.TextBox();
-            this.sexo = new System.Windows.Forms.TextBox();
+            this.idade = new System.Windows.Forms.TextBox();
             this.profissão = new System.Windows.Forms.TextBox();
             this.salario = new System.Windows.Forms.TextBox();
             this.relacionamento = new System.Windows.Forms.TextBox();
             this.numdefilhos = new System.Windows.Forms.TextBox();
-            this.tiposanguineo = new System.Windows.Forms.TextBox();
             this.endereço = new System.Windows.Forms.TextBox();
             this.email = new System.Windows.Forms.TextBox();
             this.tel = new System.Windows.Forms.TextBox();
             this.confirmar = new System.Windows.Forms.Button();
-            this.idade = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,6 +50,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.Verificar = new System.Windows.Forms.Button();
+            this.sexo = new System.Windows.Forms.ComboBox();
+            this.tiposanguineo = new System.Windows.Forms.ComboBox();
+            this.editar = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // registro
@@ -70,13 +73,13 @@
             this.nome.TabIndex = 1;
             this.nome.TextChanged += new System.EventHandler(this.Nome_TextChanged);
             // 
-            // sexo
+            // idade
             // 
-            this.sexo.Location = new System.Drawing.Point(380, 45);
-            this.sexo.Name = "sexo";
-            this.sexo.Size = new System.Drawing.Size(45, 20);
-            this.sexo.TabIndex = 3;
-            this.sexo.TextChanged += new System.EventHandler(this.Nome_TextChanged);
+            this.idade.Location = new System.Drawing.Point(315, 45);
+            this.idade.Name = "idade";
+            this.idade.Size = new System.Drawing.Size(45, 20);
+            this.idade.TabIndex = 2;
+            this.idade.TextChanged += new System.EventHandler(this.Nome_TextChanged);
             // 
             // profissão
             // 
@@ -109,14 +112,6 @@
             this.numdefilhos.Size = new System.Drawing.Size(61, 20);
             this.numdefilhos.TabIndex = 7;
             this.numdefilhos.TextChanged += new System.EventHandler(this.Nome_TextChanged);
-            // 
-            // tiposanguineo
-            // 
-            this.tiposanguineo.Location = new System.Drawing.Point(262, 143);
-            this.tiposanguineo.Name = "tiposanguineo";
-            this.tiposanguineo.Size = new System.Drawing.Size(147, 20);
-            this.tiposanguineo.TabIndex = 8;
-            this.tiposanguineo.TextChanged += new System.EventHandler(this.Nome_TextChanged);
             // 
             // endereço
             // 
@@ -151,14 +146,6 @@
             this.confirmar.Text = "Confirmar";
             this.confirmar.UseVisualStyleBackColor = true;
             this.confirmar.Click += new System.EventHandler(this.confirm_click);
-            // 
-            // idade
-            // 
-            this.idade.Location = new System.Drawing.Point(315, 45);
-            this.idade.Name = "idade";
-            this.idade.Size = new System.Drawing.Size(45, 20);
-            this.idade.TabIndex = 2;
-            this.idade.TextChanged += new System.EventHandler(this.Nome_TextChanged);
             // 
             // label1
             // 
@@ -253,17 +240,80 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 268);
+            this.label11.Location = new System.Drawing.Point(12, 268);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 13);
             this.label11.TabIndex = 25;
             this.label11.Text = "Telefone";
+            // 
+            // Verificar
+            // 
+            this.Verificar.Location = new System.Drawing.Point(68, 371);
+            this.Verificar.Name = "Verificar";
+            this.Verificar.Size = new System.Drawing.Size(75, 23);
+            this.Verificar.TabIndex = 26;
+            this.Verificar.Text = "Verificar";
+            this.Verificar.UseVisualStyleBackColor = true;
+            this.Verificar.Click += new System.EventHandler(this.Verificar_Click);
+            // 
+            // sexo
+            // 
+            this.sexo.FormattingEnabled = true;
+            this.sexo.Items.AddRange(new object[] {
+            "M",
+            "F",
+            "Outro"});
+            this.sexo.Location = new System.Drawing.Point(380, 44);
+            this.sexo.Name = "sexo";
+            this.sexo.Size = new System.Drawing.Size(45, 21);
+            this.sexo.TabIndex = 27;
+            // 
+            // tiposanguineo
+            // 
+            this.tiposanguineo.FormattingEnabled = true;
+            this.tiposanguineo.Items.AddRange(new object[] {
+            "A+",
+            "A-",
+            "AB+",
+            "AB-",
+            "B+",
+            "B-",
+            "O+",
+            "O-"});
+            this.tiposanguineo.Location = new System.Drawing.Point(266, 143);
+            this.tiposanguineo.Name = "tiposanguineo";
+            this.tiposanguineo.Size = new System.Drawing.Size(79, 21);
+            this.tiposanguineo.TabIndex = 28;
+            // 
+            // editar
+            // 
+            this.editar.Location = new System.Drawing.Point(245, 371);
+            this.editar.Name = "editar";
+            this.editar.Size = new System.Drawing.Size(75, 23);
+            this.editar.TabIndex = 29;
+            this.editar.Text = "Editar";
+            this.editar.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.Location = new System.Drawing.Point(12, 311);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(216, 13);
+            this.label12.TabIndex = 30;
+            this.label12.Text = "Todos os campos devem estar preenchidos.";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 463);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.editar);
+            this.Controls.Add(this.tiposanguineo);
+            this.Controls.Add(this.sexo);
+            this.Controls.Add(this.Verificar);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -279,12 +329,10 @@
             this.Controls.Add(this.tel);
             this.Controls.Add(this.email);
             this.Controls.Add(this.endereço);
-            this.Controls.Add(this.tiposanguineo);
             this.Controls.Add(this.numdefilhos);
             this.Controls.Add(this.relacionamento);
             this.Controls.Add(this.salario);
             this.Controls.Add(this.profissão);
-            this.Controls.Add(this.sexo);
             this.Controls.Add(this.idade);
             this.Controls.Add(this.nome);
             this.Controls.Add(this.registro);
@@ -292,6 +340,7 @@
             this.Name = "Form1";
             this.Text = "Cadastro de funcionarios 2003";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Click += new System.EventHandler(this.Editar_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,17 +350,15 @@
 
         private System.Windows.Forms.ListBox registro;
         private System.Windows.Forms.TextBox nome;
-        private System.Windows.Forms.TextBox sexo;
+        private System.Windows.Forms.TextBox idade;
         private System.Windows.Forms.TextBox profissão;
         private System.Windows.Forms.TextBox salario;
         private System.Windows.Forms.TextBox relacionamento;
         private System.Windows.Forms.TextBox numdefilhos;
-        private System.Windows.Forms.TextBox tiposanguineo;
         private System.Windows.Forms.TextBox endereço;
         private System.Windows.Forms.TextBox email;
         private System.Windows.Forms.TextBox tel;
         private System.Windows.Forms.Button confirmar;
-        private System.Windows.Forms.TextBox idade;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -323,6 +370,12 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button Verificar;
+        private System.Windows.Forms.ComboBox sexo;
+        private System.Windows.Forms.ComboBox tiposanguineo;
+        private System.Windows.Forms.Button editar;
+        private System.Windows.Forms.Label label12;
+
     }
 }
 

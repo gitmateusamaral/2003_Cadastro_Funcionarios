@@ -15,7 +15,7 @@ namespace Cadastro_de_funcionarios
     {
         private Funcionario a;
         List<Funcionario> lista = new List<Funcionario>();
-        private string[] sang = new string[8];
+        private bool edit = false;
 
         public void load()
         {
@@ -25,16 +25,15 @@ namespace Cadastro_de_funcionarios
                 lista.Add(new Funcionario());
                 lista[i].BackFromText(lines[i]);
                 registro.Items.Add(lista[i].Nome + " : " + lista[i].Profissao);
-            }
+            }                
         }
         
         public Form1()
         {
             InitializeComponent();
-            //idadegg();
-            //sanguegg();
             a = new Funcionario();
             load();
+            confirmar.Enabled = false;
         }
         private void Nome_TextChanged(object sender, EventArgs e)
         {
@@ -47,59 +46,61 @@ namespace Cadastro_de_funcionarios
                 texto[i] = lista[i].ToText();
             }
             System.IO.File.AppendAllLines("Funcionarios.txt", texto);
-        }
+        }           
+
         private void confirm_click(object sender, EventArgs e)
         {
-            a.setup(nome.Text, profissão.Text,sexo.Text,relacionamento.Text,tiposanguineo.Text,endereço.Text,email.Text,
-                (idade.Text),(salario.Text),(tel.Text),(numdefilhos.Text));
-            registro.Items.Add(a.Nome + " : " + a.Profissao);
-            lista.Add(a);
-            nome.Text = "";
-            profissão.Text = "";
-            sexo.Text = "";
-            relacionamento.Text = "";
-            tiposanguineo.Text = "";
-            endereço.Text = "";
-            email.Text = "";
-            idade.Text = "";
-            salario.Text = "";
-            tel.Text = "";
-            numdefilhos.Text = "";
-            salvar();
+            if (!edit)
+            {
+                a.setup(nome.Text, profissão.Text, sexo.Text, relacionamento.Text, tiposanguineo.Text, endereço.Text, email.Text,
+                    (idade.Text), (salario.Text), (tel.Text), (numdefilhos.Text));
+                registro.Items.Add(a.Nome + " : " + a.Profissao);
+                lista.Add(a);
+                nome.Text = "";
+                profissão.Text = "";
+                sexo.Text = "";
+                relacionamento.Text = "";
+                tiposanguineo.Text = "";
+                endereço.Text = "";
+                email.Text = "";
+                idade.Text = "";
+                salario.Text = "";
+                tel.Text = "";
+                numdefilhos.Text = "";
+                salvar();
+            }
+
+            else
+            {
+            }
+
+            edit = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {}
-        private void comboBoxIdade_SelectedIndexChanged(object sender, EventArgs e)
-        {}
 
-        /*public void idadegg()
+        private void Verificar_Click(object sender, EventArgs e)
         {
-            for(int i = 0; i <= 120; i++)
+            if (!string.IsNullOrWhiteSpace(nome.Text) && !string.IsNullOrWhiteSpace(profissão.Text) && !string.IsNullOrWhiteSpace(sexo.Text)
+                && !string.IsNullOrWhiteSpace(relacionamento.Text) && !string.IsNullOrWhiteSpace(tiposanguineo.Text) && !string.IsNullOrWhiteSpace(endereço.Text)
+                && !string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(idade.Text) && !string.IsNullOrWhiteSpace(salario.Text)
+                && !string.IsNullOrWhiteSpace(tel.Text) && !string.IsNullOrWhiteSpace(numdefilhos.Text))
             {
-                comboBoxIdade.Items.Add(i);
-            }
-        }
-        public void sanguegg()
-        {
-            for (int i = 0; i <= 8; i++)
-            {
-                sang[0] = "O-";
-                sang[1] = "O+";
-                sang[2] = "A-";
-                sang[3] = "A+";
-                sang[4] = "B-";
-                sang[5] = "B+";
-                sang[6] = "AB-";
-                sang[7] = "AB+";
-                comboBoxSang.Items.Add(sang);
+                confirmar.Enabled = true;
             }
         }
 
-        private void comboBoxSang_SelectedIndexChanged(object sender, EventArgs e)
+        private void Editar_Click(object sender, EventArgs e)
         {
 
-        }*/
+            int index = registro.SelectedIndex;
+            string[] allLines = System.IO.File.ReadAllLines("Funcionarios.txt");
+            foreach(string line in allLines)
+            {
 
+            }
+
+        }
     }
 }
