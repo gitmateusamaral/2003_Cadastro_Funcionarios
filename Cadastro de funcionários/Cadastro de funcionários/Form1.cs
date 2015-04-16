@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Cadastro_de_funcionarios
 {
@@ -15,7 +16,7 @@ namespace Cadastro_de_funcionarios
     {
         private Funcionario a;
         List<Funcionario> lista = new List<Funcionario>();
-        private bool edit = false;
+        public bool editing;
 
         public void load()
         {
@@ -24,7 +25,7 @@ namespace Cadastro_de_funcionarios
             {
                 lista.Add(new Funcionario());
                 lista[i].BackFromText(lines[i]);
-                registro.Items.Add(lista[i].Nome + " : " + lista[i].Profissao);
+                registro.Items.Add(lista[i].Nome + ":" + lista[i].Profissao);
             }                
         }
         
@@ -34,14 +35,16 @@ namespace Cadastro_de_funcionarios
             a = new Funcionario();
             load();
             confirmar.Enabled = false;
+            editing = false;
         }
         private void Nome_TextChanged(object sender, EventArgs e)
         {
+            nome.Text = Regex.Replace(Convert.ToString(nome.Text), "(?i)[^a-z À-ÿ]", "");
         }
         public void salvar()
         {
             string[] texto = new string[lista.ToArray().Length];
-            for (int i = 0; i < lista.ToArray().Length; i++)
+            for (int i = 0; i < lista.Count; i++)
             {
                 texto[i] = lista[i].ToText();
             }
@@ -50,7 +53,7 @@ namespace Cadastro_de_funcionarios
 
         private void confirm_click(object sender, EventArgs e)
         {
-            if (!edit)
+            if (!editing)
             {
                 a.setup(nome.Text, profissão.Text, sexo.Text, relacionamento.Text, tiposanguineo.Text, endereço.Text, email.Text,
                     (idade.Text), (salario.Text), (tel.Text), (numdefilhos.Text));
@@ -72,9 +75,36 @@ namespace Cadastro_de_funcionarios
 
             else
             {
+                if (registro.SelectedIndex > -1)
+                {
+                    string[] allLines = System.IO.File.ReadAllLines("Funcionarios.txt");
+
+                    for (int i = 0; i < allLines.Length; i++)
+                    {
+                        if (lista[registro.SelectedIndex].ToText().Equals(allLines[i]))
+                        {
+                            lista[registro.SelectedIndex].setup(nome.Text, profissão.Text, sexo.Text, relacionamento.Text, tiposanguineo.Text, endereço.Text, email.Text,
+                            (idade.Text), (salario.Text), (tel.Text), (numdefilhos.Text));
+                            allLines[i] =  lista[registro.SelectedIndex].ToText();
+                        }
+                    }
+                    nome.Text = "";
+                    profissão.Text = "";
+                    sexo.Text = "";
+                    relacionamento.Text = "";
+                    tiposanguineo.Text = "";
+                    endereço.Text = "";
+                    email.Text = "";
+                    idade.Text = "";
+                    salario.Text = "";
+                    tel.Text = "";
+                    numdefilhos.Text = "";
+                    System.IO.File.WriteAllLines("Funcionarios.txt", allLines);
+                }
             }
 
-            edit = false;
+            editing = false;
+            confirmar.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -82,6 +112,8 @@ namespace Cadastro_de_funcionarios
 
         private void Verificar_Click(object sender, EventArgs e)
         {
+ 
+
             if (!string.IsNullOrWhiteSpace(nome.Text) && !string.IsNullOrWhiteSpace(profissão.Text) && !string.IsNullOrWhiteSpace(sexo.Text)
                 && !string.IsNullOrWhiteSpace(relacionamento.Text) && !string.IsNullOrWhiteSpace(tiposanguineo.Text) && !string.IsNullOrWhiteSpace(endereço.Text)
                 && !string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(idade.Text) && !string.IsNullOrWhiteSpace(salario.Text)
@@ -91,16 +123,51 @@ namespace Cadastro_de_funcionarios
             }
         }
 
+
         private void Editar_Click(object sender, EventArgs e)
         {
-
-            int index = registro.SelectedIndex;
-            string[] allLines = System.IO.File.ReadAllLines("Funcionarios.txt");
-            foreach(string line in allLines)
+            if (registro.SelectedIndex > -1)
             {
-
+                nome.Text = lista[registro.SelectedIndex].Nome;
+                profissão.Text = lista[registro.SelectedIndex].Profissao;
+                sexo.Text = lista[registro.SelectedIndex].Sexo;
+                relacionamento.Text = lista[registro.SelectedIndex].EstCiv;
+                tiposanguineo.Text = lista[registro.SelectedIndex].SangTip;
+                endereço.Text = lista[registro.SelectedIndex].Endereço;
+                email.Text = lista[registro.SelectedIndex].Email;
+                idade.Text = lista[registro.SelectedIndex].Idade;
+                salario.Text = lista[registro.SelectedIndex].Salario;
+                tel.Text = lista[registro.SelectedIndex].Telefone;
+                numdefilhos.Text = lista[registro.SelectedIndex].Nfilhos;
             }
+        }
 
+        private void Deletar_Click(object sender, EventArgs e)
+        {
+            if (registro.SelectedIndex > -1)
+            {
+                lista.RemoveAt(registro.SelectedIndex);
+                string[] reWrite = new string[lista.Count];
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    reWrite[i] = lista[i].ToText();
+                }
+
+                nome.Text = "";
+                profissão.Text = "";
+                sexo.Text = "";
+                relacionamento.Text = "";
+                tiposanguineo.Text = "";
+                endereço.Text = "";
+                email.Text = "";
+                idade.Text = "";
+                salario.Text = "";
+                tel.Text = "";
+                numdefilhos.Text = "";
+                System.IO.File.WriteAllLines("Funcionarios.txt", reWrite);
+                
+            }
+        }
         }
     }
-}
+

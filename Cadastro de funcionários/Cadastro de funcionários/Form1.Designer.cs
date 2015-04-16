@@ -55,6 +55,7 @@
             this.tiposanguineo = new System.Windows.Forms.ComboBox();
             this.editar = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
+            this.Deletar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // registro
@@ -293,6 +294,7 @@
             this.editar.TabIndex = 29;
             this.editar.Text = "Editar";
             this.editar.UseVisualStyleBackColor = true;
+            this.editar.Click += new System.EventHandler(this.Editar_Click);
             // 
             // label12
             // 
@@ -304,11 +306,22 @@
             this.label12.TabIndex = 30;
             this.label12.Text = "Todos os campos devem estar preenchidos.";
             // 
+            // Deletar
+            // 
+            this.Deletar.Location = new System.Drawing.Point(335, 371);
+            this.Deletar.Name = "Deletar";
+            this.Deletar.Size = new System.Drawing.Size(75, 23);
+            this.Deletar.TabIndex = 31;
+            this.Deletar.Text = "Deletar";
+            this.Deletar.UseVisualStyleBackColor = true;
+            this.Deletar.Click += new System.EventHandler(this.Deletar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 463);
+            this.Controls.Add(this.Deletar);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.editar);
             this.Controls.Add(this.tiposanguineo);
@@ -340,7 +353,6 @@
             this.Name = "Form1";
             this.Text = "Cadastro de funcionarios 2003";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Click += new System.EventHandler(this.Editar_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,6 +387,7 @@
         private System.Windows.Forms.ComboBox tiposanguineo;
         private System.Windows.Forms.Button editar;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button Deletar;
 
     }
 }
