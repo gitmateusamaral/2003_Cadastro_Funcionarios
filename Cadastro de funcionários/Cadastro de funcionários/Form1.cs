@@ -41,11 +41,13 @@ namespace Cadastro_de_funcionarios
         {
             nome.Text = Regex.Replace(Convert.ToString(nome.Text), "(?i)[^a-z À-ÿ]", "");
             profissão.Text = Regex.Replace(Convert.ToString(profissão.Text), "(?i)[^a-z À-ÿ]", "");
-            relacionamento.Text = Regex.Replace(Convert.ToString(relacionamento.Text), "(?i)[^a-z À-ÿ]", "");
+            endereço.Text = Regex.Replace(Convert.ToString(endereço.Text), "(?i)[^a-z À-ÿ][^0-9]", "");
+            relacionamento.Text = Regex.Replace(Convert.ToString(relacionamento.Text), "(?i)[^a-z À-ÿ][(][)]", "");
             salario.Text = Regex.Replace(Convert.ToString(salario.Text), "[^0-9]", "");
             numdefilhos.Text = Regex.Replace(Convert.ToString(numdefilhos.Text), "[^0-9]", "");
             idade.Text = Regex.Replace(Convert.ToString(idade.Text), "[^0-9]", "");
-            tel.Text = Regex.Replace(Convert.ToString(tel.Text), "[^0-9]", "");
+            tel.Text = Regex.Replace(Convert.ToString(tel.Text), "[^0-9][(][)]", "");
+            confirmar.Enabled = false;
         }
         public void salvar()
         {
@@ -128,17 +130,29 @@ namespace Cadastro_de_funcionarios
                     {
                         charcountEm++;
                     }
-                }
 
+                    if(a.Equals('#'))
+                    {
+                        charcountEm += 5;
+                    }
+                }
+                string [] EmT = email.Text.Split('@');
+                
                 foreach (char a in tel.Text)
                 {
                     charcountTel++;
                 }
-                if ((charcountEm == 0 || charcountEm > 1) || (int.Parse(idade.Text) > 99 || int.Parse(idade.Text) < 18) || charcountTel > 9)
+
+                if ((charcountEm == 0 || charcountEm > 1 || EmT.Length < 2) || (int.Parse(idade.Text) > 99 || int.Parse(idade.Text) < 18) || (charcountTel < 12 || charcountTel > 13))
                 {
-                    if ((charcountEm == 0 || charcountEm > 1))
+                    if ((charcountEm == 0 || charcountEm > 1 || EmT.Length < 2))
                     {
                         label13.ForeColor = Color.Red;
+                    }
+
+                    else 
+                    { 
+                        label13.ForeColor = Form1.DefaultBackColor; 
                     }
 
                     if ((int.Parse(idade.Text) > 99 || int.Parse(idade.Text) < 18))
@@ -146,9 +160,18 @@ namespace Cadastro_de_funcionarios
                         label14.ForeColor = Color.Red;
                     }
 
-                    if (charcountTel > 9)
+                    else 
+                    {
+                        label14.ForeColor = Form1.DefaultBackColor; 
+                    }
+
+                    if ((charcountTel < 12 || charcountTel > 13))
                     {
                         label15.ForeColor = Color.Red;
+                    }
+                    else 
+                    { 
+                        label15.ForeColor = Form1.DefaultBackColor;
                     }
                 }
                 else
@@ -216,4 +239,3 @@ namespace Cadastro_de_funcionarios
         }
         }
     }
-

@@ -185,9 +185,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 127);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 20;
-            this.label6.Text = "Relacionamento";
+            this.label6.Text = "Estado Civil";
             // 
             // label7
             // 
@@ -350,6 +350,7 @@
             // 
             this.numdefilhos.FormattingEnabled = true;
             this.numdefilhos.Items.AddRange(new object[] {
+            "0",
             "1",
             "2",
             "3",
