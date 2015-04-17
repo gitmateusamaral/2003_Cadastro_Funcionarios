@@ -14,7 +14,7 @@ namespace Cadastro_de_funcionarios
 {
     partial class Form1 : Form
     {
-        private Funcionario a;
+        private Funcionario temp;
         List<Funcionario> lista = new List<Funcionario>();
         public bool editing;
 
@@ -32,7 +32,7 @@ namespace Cadastro_de_funcionarios
         public Form1()
         {
             InitializeComponent();
-            a = new Funcionario();
+            temp = new Funcionario();
             load();
             confirmar.Enabled = false;
             editing = false;
@@ -40,14 +40,17 @@ namespace Cadastro_de_funcionarios
         private void Nome_TextChanged(object sender, EventArgs e)
         {
             nome.Text = Regex.Replace(Convert.ToString(nome.Text), "(?i)[^a-z À-ÿ]", "");
+            profissão.Text = Regex.Replace(Convert.ToString(profissão.Text), "(?i)[^a-z À-ÿ]", "");
+            relacionamento.Text = Regex.Replace(Convert.ToString(relacionamento.Text), "(?i)[^a-z À-ÿ]", "");
+            salario.Text = Regex.Replace(Convert.ToString(salario.Text), "[^0-9]", "");
+            numdefilhos.Text = Regex.Replace(Convert.ToString(numdefilhos.Text), "[^0-9]", "");
+            idade.Text = Regex.Replace(Convert.ToString(idade.Text), "[^0-9]", "");
+            tel.Text = Regex.Replace(Convert.ToString(tel.Text), "[^0-9]", "");
         }
         public void salvar()
         {
-            string[] texto = new string[lista.ToArray().Length];
-            for (int i = 0; i < lista.Count; i++)
-            {
-                texto[i] = lista[i].ToText();
-            }
+            string[] texto = new string[1];
+            texto[0] = temp.ToText();
             System.IO.File.AppendAllLines("Funcionarios.txt", texto);
         }           
 
@@ -55,10 +58,10 @@ namespace Cadastro_de_funcionarios
         {
             if (!editing)
             {
-                a.setup(nome.Text, profissão.Text, sexo.Text, relacionamento.Text, tiposanguineo.Text, endereço.Text, email.Text,
+                temp.setup(nome.Text, profissão.Text, sexo.Text, relacionamento.Text, tiposanguineo.Text, endereço.Text, email.Text,
                     (idade.Text), (salario.Text), (tel.Text), (numdefilhos.Text));
-                registro.Items.Add(a.Nome + " : " + a.Profissao);
-                lista.Add(a);
+                registro.Items.Add(temp.Nome + ":" + temp.Profissao);
+                lista.Add(temp);
                 nome.Text = "";
                 profissão.Text = "";
                 sexo.Text = "";
@@ -112,14 +115,55 @@ namespace Cadastro_de_funcionarios
 
         private void Verificar_Click(object sender, EventArgs e)
         {
- 
-
+            int charcountEm = 0;
+            int charcountTel = 0;
             if (!string.IsNullOrWhiteSpace(nome.Text) && !string.IsNullOrWhiteSpace(profissão.Text) && !string.IsNullOrWhiteSpace(sexo.Text)
                 && !string.IsNullOrWhiteSpace(relacionamento.Text) && !string.IsNullOrWhiteSpace(tiposanguineo.Text) && !string.IsNullOrWhiteSpace(endereço.Text)
                 && !string.IsNullOrWhiteSpace(email.Text) && !string.IsNullOrWhiteSpace(idade.Text) && !string.IsNullOrWhiteSpace(salario.Text)
                 && !string.IsNullOrWhiteSpace(tel.Text) && !string.IsNullOrWhiteSpace(numdefilhos.Text))
             {
-                confirmar.Enabled = true;
+                foreach (char a in email.Text)
+                {
+                    if (a.Equals('@'))
+                    {
+                        charcountEm++;
+                    }
+                }
+
+                foreach (char a in tel.Text)
+                {
+                    charcountTel++;
+                }
+                if ((charcountEm == 0 || charcountEm > 1) || (int.Parse(idade.Text) > 99 || int.Parse(idade.Text) < 18) || charcountTel > 9)
+                {
+                    if ((charcountEm == 0 || charcountEm > 1))
+                    {
+                        label13.ForeColor = Color.Red;
+                    }
+
+                    if ((int.Parse(idade.Text) > 99 || int.Parse(idade.Text) < 18))
+                    {
+                        label14.ForeColor = Color.Red;
+                    }
+
+                    if (charcountTel > 9)
+                    {
+                        label15.ForeColor = Color.Red;
+                    }
+                }
+                else
+                {
+                    confirmar.Enabled = true;
+                    label12.ForeColor = Form1.DefaultBackColor;
+                    label13.ForeColor = Form1.DefaultBackColor;
+                    label14.ForeColor = Form1.DefaultBackColor;
+                    label15.ForeColor = Form1.DefaultBackColor;
+                }
+            }
+                
+            else
+            {
+                label12.ForeColor = Color.Red;
             }
         }
 
@@ -128,6 +172,7 @@ namespace Cadastro_de_funcionarios
         {
             if (registro.SelectedIndex > -1)
             {
+                editing = true;
                 nome.Text = lista[registro.SelectedIndex].Nome;
                 profissão.Text = lista[registro.SelectedIndex].Profissao;
                 sexo.Text = lista[registro.SelectedIndex].Sexo;
@@ -147,6 +192,7 @@ namespace Cadastro_de_funcionarios
             if (registro.SelectedIndex > -1)
             {
                 lista.RemoveAt(registro.SelectedIndex);
+                registro.Items.RemoveAt(registro.SelectedIndex);
                 string[] reWrite = new string[lista.Count];
                 for (int i = 0; i < lista.Count; i++)
                 {

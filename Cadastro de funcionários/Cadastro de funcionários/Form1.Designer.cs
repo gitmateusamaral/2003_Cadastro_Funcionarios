@@ -33,8 +33,6 @@
             this.idade = new System.Windows.Forms.TextBox();
             this.profissão = new System.Windows.Forms.TextBox();
             this.salario = new System.Windows.Forms.TextBox();
-            this.relacionamento = new System.Windows.Forms.TextBox();
-            this.numdefilhos = new System.Windows.Forms.TextBox();
             this.endereço = new System.Windows.Forms.TextBox();
             this.email = new System.Windows.Forms.TextBox();
             this.tel = new System.Windows.Forms.TextBox();
@@ -56,6 +54,11 @@
             this.editar = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.Deletar = new System.Windows.Forms.Button();
+            this.relacionamento = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.numdefilhos = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // registro
@@ -97,22 +100,6 @@
             this.salario.Size = new System.Drawing.Size(147, 20);
             this.salario.TabIndex = 5;
             this.salario.TextChanged += new System.EventHandler(this.Nome_TextChanged);
-            // 
-            // relacionamento
-            // 
-            this.relacionamento.Location = new System.Drawing.Point(15, 143);
-            this.relacionamento.Name = "relacionamento";
-            this.relacionamento.Size = new System.Drawing.Size(147, 20);
-            this.relacionamento.TabIndex = 6;
-            this.relacionamento.TextChanged += new System.EventHandler(this.Nome_TextChanged);
-            // 
-            // numdefilhos
-            // 
-            this.numdefilhos.Location = new System.Drawing.Point(180, 143);
-            this.numdefilhos.Name = "numdefilhos";
-            this.numdefilhos.Size = new System.Drawing.Size(61, 20);
-            this.numdefilhos.TabIndex = 7;
-            this.numdefilhos.TextChanged += new System.EventHandler(this.Nome_TextChanged);
             // 
             // endereço
             // 
@@ -189,9 +176,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(263, 79);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.Size = new System.Drawing.Size(59, 13);
             this.label5.TabIndex = 19;
-            this.label5.Text = "Salário";
+            this.label5.Text = "Salário(R$)";
             // 
             // label6
             // 
@@ -299,7 +286,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.ForeColor = System.Drawing.SystemColors.Control;
             this.label12.Location = new System.Drawing.Point(12, 311);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(216, 13);
@@ -316,11 +303,73 @@
             this.Deletar.UseVisualStyleBackColor = true;
             this.Deletar.Click += new System.EventHandler(this.Deletar_Click);
             // 
+            // relacionamento
+            // 
+            this.relacionamento.FormattingEnabled = true;
+            this.relacionamento.Items.AddRange(new object[] {
+            "Casado(a)",
+            "Solteiro(a)",
+            "Divorciado(a)",
+            "Viúvo(a)"});
+            this.relacionamento.Location = new System.Drawing.Point(15, 142);
+            this.relacionamento.Name = "relacionamento";
+            this.relacionamento.Size = new System.Drawing.Size(128, 21);
+            this.relacionamento.TabIndex = 32;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.SystemColors.Control;
+            this.label13.Location = new System.Drawing.Point(12, 324);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(74, 13);
+            this.label13.TabIndex = 33;
+            this.label13.Text = "Email inválido.";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.SystemColors.Control;
+            this.label14.Location = new System.Drawing.Point(12, 337);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(76, 13);
+            this.label14.TabIndex = 34;
+            this.label14.Text = "Idade inválida.";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.SystemColors.Control;
+            this.label15.Location = new System.Drawing.Point(12, 350);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(91, 13);
+            this.label15.TabIndex = 35;
+            this.label15.Text = "Telefone inválido.";
+            // 
+            // numdefilhos
+            // 
+            this.numdefilhos.FormattingEnabled = true;
+            this.numdefilhos.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4+"});
+            this.numdefilhos.Location = new System.Drawing.Point(180, 143);
+            this.numdefilhos.Name = "numdefilhos";
+            this.numdefilhos.Size = new System.Drawing.Size(61, 21);
+            this.numdefilhos.TabIndex = 36;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(668, 463);
+            this.Controls.Add(this.numdefilhos);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.relacionamento);
             this.Controls.Add(this.Deletar);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.editar);
@@ -342,14 +391,15 @@
             this.Controls.Add(this.tel);
             this.Controls.Add(this.email);
             this.Controls.Add(this.endereço);
-            this.Controls.Add(this.numdefilhos);
-            this.Controls.Add(this.relacionamento);
             this.Controls.Add(this.salario);
             this.Controls.Add(this.profissão);
             this.Controls.Add(this.idade);
             this.Controls.Add(this.nome);
             this.Controls.Add(this.registro);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(684, 502);
+            this.MinimumSize = new System.Drawing.Size(684, 502);
             this.Name = "Form1";
             this.Text = "Cadastro de funcionarios 2003";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -365,8 +415,6 @@
         private System.Windows.Forms.TextBox idade;
         private System.Windows.Forms.TextBox profissão;
         private System.Windows.Forms.TextBox salario;
-        private System.Windows.Forms.TextBox relacionamento;
-        private System.Windows.Forms.TextBox numdefilhos;
         private System.Windows.Forms.TextBox endereço;
         private System.Windows.Forms.TextBox email;
         private System.Windows.Forms.TextBox tel;
@@ -388,6 +436,11 @@
         private System.Windows.Forms.Button editar;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button Deletar;
+        private System.Windows.Forms.ComboBox relacionamento;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox numdefilhos;
 
     }
 }
